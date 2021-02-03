@@ -10,10 +10,18 @@ var mainCardTemp = document.getElementById("mainCardTemp");
 var mainCardHumidity = document.getElementById("mainCardHumidity");
 var mainCardWindSpeed = document.getElementById("mainCardWindSpeed");
 var MainCardUVIndex = document.getElementById("mainCardUVIndex");
-var mainCardCity = document.getElementById("mainCardCity");
+
 
 
 // User Input City Selection
+
+
+// Vars for Main Card
+
+
+
+
+
 
 // Current Weather Results & Function for main card
 fetch(currentWeatherUrl)
@@ -21,17 +29,37 @@ fetch(currentWeatherUrl)
     return response.json();
   })
   .then(function (data) {
-
-    console.log('Fetch Response \n-------------');
-    console.log(data);
+    // APPEND CITY TO MAIN CARD
+    var mainDisplay = document.getElementById("main-weather-display")
+    var mainCardCity = document.createElement('h1');
+          mainCardCity.textContent = data.name;
+    var mainCardData = document.createElement("ul");
+    var mainCardTemp = document.createElement('li');
+          mainCardTemp.textContent = 'Temperature: ' + data.main.temp + '°F';
+    var mainCardHumidity = document.createElement('li');
+          mainCardHumidity.textContent = 'Humidity: ' + data.main.humidity + '%';
+    var mainCardWindSpeed = document.createElement('li');
+          mainCardWindSpeed.textContent = 'Wind Speed: ' + data.wind.speed + ' MPH';
     
-    console.log('Fetch Response \n-------------');
-    console.log(data.name)
-    console.log(data.weather[0].icon)
-    console.log('Temperature: ' + data.main.temp + '°F')
-    console.log('Humidity: ' + data.main.humidity + '%')
-    console.log('Wind Speed: ' + data.wind.speed + ' MPH')
+      mainDisplay.appendChild(mainCardCity);
+      mainDisplay.appendChild(mainCardData);
+      mainCardData.appendChild(mainCardTemp);
+      mainCardData.appendChild(mainCardHumidity);
+      mainCardData.appendChild(mainCardWindSpeed);
+      
+    // console.log('Fetch Response \n-------------');
+    // console.log(data);
 
+   
+   
+    
+
+    // // APPEND ICON 
+    // console.log(data.weather[0].icon)
+    // var mainCardIconInput = data.weather[0].icon
+    // mainCardHumidity.appendChild(mainCardHumidityInput);
+    
+ 
     // lat and lon for UV idex info
 
 
@@ -54,6 +82,13 @@ fetch(currentUvUrl)
     return response.json();
   })
   .then(function (data) {
+
+    var mainDisplay = document.getElementById("main-weather-display")
+    var mainCardData = document.createElement("ul");
+    var mainCardUVIndex = document.createElement('li');
+      mainDisplay.appendChild(mainCardData);
+    mainCardUVIndex.textContent = 'UV Index: ' + data.value;
+      mainCardData.appendChild(mainCardUVIndex)
       console.log('UV Index: ' + data.value)
   })
 
